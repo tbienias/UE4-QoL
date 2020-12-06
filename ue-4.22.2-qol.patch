@@ -1,0 +1,63 @@
+diff --git a/Engine/Config/BaseEditorSettings.ini b/Engine/Config/BaseEditorSettings.ini
+index c6f2c99615d..73ca0d6a186 100644
+--- a/Engine/Config/BaseEditorSettings.ini
++++ b/Engine/Config/BaseEditorSettings.ini
+@@ -4,7 +4,7 @@ ShouldUseLocalizedPropertyNames=True
+ ShouldUseLocalizedNodeAndPinNames=True
+ 
+ [/Script/UnrealEd.EditorSettings]
+-bCopyStarterContentPreference = true
++bCopyStarterContentPreference=False
+ 
+ [/Script/UnrealEd.CrashReportsPrivacySettings]
+ bSendUnattendedBugReports=True
+@@ -45,6 +45,7 @@ IncludeAssetPaths=False
+ IncludeCollectionNames=True
+ 
+ [/Script/IntroTutorials.EditorTutorialSettings]
+++bDisableAllTutorialAlerts=True
+ +Categories=(Identifier="Basics",Title=NSLOCTEXT("TutorialCategories","BasicsTitle","Basics"),Description=NSLOCTEXT("TutorialCategories","BasicsDescription","Getting started with Unreal Engine 4."),Icon="PlayWorld.RepeatLastPlay",Texture=None,SortOrder=100)
+ +Categories=(Identifier="Blueprints",Title=NSLOCTEXT("TutorialCategories","BlueprintsTitle","Blueprints"),Description=NSLOCTEXT("TutorialCategories","BlueprintsDescription","Tutorials covering the creation and usage of Blueprints."),Icon="FullBlueprintEditor.EditGlobalOptions",Texture=/Engine/Tutorial/BlueprintTutorials/TutorialAssets/Blueprint_64x.Blueprint_64x,SortOrder=200)
+ +Categories=(Identifier="Editors",Title=NSLOCTEXT("TutorialCategories","EditorsTitle","Editors"),Description=NSLOCTEXT("TutorialCategories","EditorsDescription","Tutorials covering the various sub editors of Unreal Engine 4."),Icon=,Texture=/Engine/Tutorial/SubEditors/TutorialAssets/icon_Editor_Preferences_General_40x.icon_Editor_Preferences_General_40x,SortOrder=225)
+@@ -54,7 +55,7 @@ IncludeCollectionNames=True
+ +Categories=(Identifier="Landscape",Title=NSLOCTEXT("TutorialCategories","LandscapeTitle","Landscape"),Description=NSLOCTEXT("TutorialCategories","LandscapeDescription","Tutorials covering the Unreal Editor 4 terrain editor: Landscape."),Icon="LevelEditor.LandscapeMode",Texture=/Engine/Tutorial/Landscape/TutorialAssets/Landscape.Landscape,SortOrder=700)
+ +Categories=(Identifier="Foliage",Title=NSLOCTEXT("TutorialCategories","FoliageTitle","Foliage"),Description=NSLOCTEXT("TutorialCategories","FoliageDescription","Tutorials covering the Unreal Engine 4 Foliage tool."),Icon="LevelEditor.FoliageMode",Texture=/Engine/Tutorial/Foliage/TutorialAssets/Foliage.Foliage,SortOrder=800)
+ +Categories=(Identifier="Mobile",Title=NSLOCTEXT("TutorialCategories","MobileTitle","Mobile"),Description=NSLOCTEXT("TutorialCategories","MobileDescription","Mobile Tutorials."),Icon="MaterialEditor.ToggleMobileStats",Texture=None,SortOrder=900)
+-+StartupTutorial=/Engine/Tutorial/Basics/LevelEditorAttract.LevelEditorAttract_C
+++StartupTutorial=None
+ +TutorialContexts=(Context="StaticMeshEditor",BrowserFilter=,AttractTutorial=None,LaunchTutorial=/Engine/Tutorial/SubEditors/StaticMeshEditorTutorial.StaticMeshEditorTutorial_C)
+ +TutorialContexts=(Context="LevelEditor",BrowserFilter=,AttractTutorial=None,LaunchTutorial=/Engine/Tutorial/Basics/LevelEditorOverview.LevelEditorOverview_C)
+ +TutorialContexts=(Context="BlueprintEditor",BrowserFilter=,AttractTutorial=None,LaunchTutorial=/Engine/Tutorial/BlueprintTutorials/BlueprintEditorTutorial.BlueprintEditorTutorial_C)
+@@ -94,3 +95,5 @@ TeleporterClass=Class'/Script/VREditor.VREditorTeleporter'
+ Duration=(SubFrame=0.0)
+ FrameRate=(Numerator=60, Denominator=1)
+ 
++[/Script/UnrealEd.EditorPerformanceSettings]
++bShowFrameRateAndMemory=True
+diff --git a/Engine/Config/BaseEngine.ini b/Engine/Config/BaseEngine.ini
+index 226ea02b47f..5346f0c23f8 100644
+--- a/Engine/Config/BaseEngine.ini
++++ b/Engine/Config/BaseEngine.ini
+@@ -2007,8 +2007,8 @@ MaxBitrate=4000
+ TargetArchitecture=X86_64UnknownLinuxGnu
+ 
+ ; When neither -vulkan nor -opengl4 are passed on the commandline, the engine will default to the first targeted RHI.
+-+TargetedRHIs=SF_VULKAN_SM5
+ +TargetedRHIs=GLSL_430
+++TargetedRHIs=SF_VULKAN_SM5
+ 
+  
+ [/Script/MacTargetPlatform.MacTargetSettings]
+diff --git a/Engine/Config/Linux/LinuxEngine.ini b/Engine/Config/Linux/LinuxEngine.ini
+index fec3daf0d93..dbdacd87ab7 100644
+--- a/Engine/Config/Linux/LinuxEngine.ini
++++ b/Engine/Config/Linux/LinuxEngine.ini
+@@ -10,7 +10,7 @@ r.setres=1280x720
+ r.RHICmdBypass=1
+ 
+ [/Script/SourceCodeAccess.SourceCodeAccessSettings]
+-PreferredAccessor=NullSourceCodeAccessor
++PreferredAccessor=VisualStudioCodeSourceCodeAccessor
+ 
+ [TextureStreaming]
+ ; PoolSizeVRAMPercentage is how much percentage of GPU Dedicated VRAM should be used as a TexturePool cache for streaming textures (0 - unlimited streaming)

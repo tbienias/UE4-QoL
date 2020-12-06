@@ -1,0 +1,100 @@
+diff --git a/Engine/Config/BaseEditorPerProjectUserSettings.ini b/Engine/Config/BaseEditorPerProjectUserSettings.ini
+index 3785cd0d058..e46dbd56a9d 100644
+--- a/Engine/Config/BaseEditorPerProjectUserSettings.ini
++++ b/Engine/Config/BaseEditorPerProjectUserSettings.ini
+@@ -88,7 +88,7 @@ LogErrorColor=(R=1.000000,G=0.052083,B=0.060957,A=1.000000)
+ LogFontSize=9
+ 
+ ; If true, all toolbars will use small icons without labels
+-bUseSmallToolBarIcons=False
++bUseSmallToolBarIcons=True
+ ; Enables animated transitions for certain menus and pop-up windows.  Note that animations may be automatically disabled at low frame rates in order to improve responsiveness.
+ bEnableWindowAnimations=False
+ ;If true, Variables names in the script editor are displayed in a sanitized format
+@@ -152,11 +152,11 @@ bAutoReimportCSV=False
+ ; Whether to mark blueprints dirty if they are automatically migrated during loads
+ bDirtyMigratedBlueprints=False
+ ; Whether to automatically save after a time interval
+-bAutoSaveEnable=True
++bAutoSaveEnable=False
+ ; Whether to automatically save maps during an autosave
+-bAutoSaveMaps=True
++bAutoSaveMaps=False
+ ; Whether to automatically save content packages during an autosave
+-bAutoSaveContent=True
++bAutoSaveContent=False
+ ; The time interval after which to save
+ AutoSaveTimeMinutes=10
+ ; The number of seconds warning before an autosave
+diff --git a/Engine/Config/BaseEditorSettings.ini b/Engine/Config/BaseEditorSettings.ini
+index ff56d1d1a4b..fe75c47cfca 100644
+--- a/Engine/Config/BaseEditorSettings.ini
++++ b/Engine/Config/BaseEditorSettings.ini
+@@ -4,7 +4,7 @@ ShouldUseLocalizedPropertyNames=True
+ ShouldUseLocalizedNodeAndPinNames=True
+ 
+ [/Script/UnrealEd.EditorSettings]
+-bCopyStarterContentPreference = true
++bCopyStarterContentPreference=False
+ 
+ [/Script/UnrealEd.CrashReportsPrivacySettings]
+ bSendUnattendedBugReports=True
+@@ -26,7 +26,7 @@ DisplayFolders=True
+ ; Whether to display empty folders in the asset view of the content browser.
+ DisplayEmptyFolders=True
+ ; Whether to display the engine folders in the assets view of the content browser. Note that this implies 'Display Folders'.
+-DisplayEngineFolder=False
++DisplayEngineFolder=True
+ ; Whether to display the developers folder in the path or assets view of the content browser
+ DisplayDevelopersFolder=False
+ ; Whether to display the collections view in the Content Browser
+@@ -45,6 +45,7 @@ IncludeAssetPaths=False
+ IncludeCollectionNames=True
+ 
+ [/Script/IntroTutorials.EditorTutorialSettings]
++bDisableAllTutorialAlerts=True
+ +Categories=(Identifier="Basics",Title=NSLOCTEXT("TutorialCategories","BasicsTitle","Basics"),Description=NSLOCTEXT("TutorialCategories","BasicsDescription","Getting started with Unreal Engine 4."),Icon="PlayWorld.RepeatLastPlay",Texture=None,SortOrder=100)
+ +Categories=(Identifier="Blueprints",Title=NSLOCTEXT("TutorialCategories","BlueprintsTitle","Blueprints"),Description=NSLOCTEXT("TutorialCategories","BlueprintsDescription","Tutorials covering the creation and usage of Blueprints."),Icon="FullBlueprintEditor.EditGlobalOptions",Texture=/Engine/Tutorial/BlueprintTutorials/TutorialAssets/Blueprint_64x.Blueprint_64x,SortOrder=200)
+ +Categories=(Identifier="Editors",Title=NSLOCTEXT("TutorialCategories","EditorsTitle","Editors"),Description=NSLOCTEXT("TutorialCategories","EditorsDescription","Tutorials covering the various sub editors of Unreal Engine 4."),Icon=,Texture=/Engine/Tutorial/SubEditors/TutorialAssets/icon_Editor_Preferences_General_40x.icon_Editor_Preferences_General_40x,SortOrder=225)
+@@ -54,7 +55,7 @@ IncludeCollectionNames=True
+ +Categories=(Identifier="Landscape",Title=NSLOCTEXT("TutorialCategories","LandscapeTitle","Landscape"),Description=NSLOCTEXT("TutorialCategories","LandscapeDescription","Tutorials covering the Unreal Editor 4 terrain editor: Landscape."),Icon="LevelEditor.LandscapeMode",Texture=/Engine/Tutorial/Landscape/TutorialAssets/Landscape.Landscape,SortOrder=700)
+ +Categories=(Identifier="Foliage",Title=NSLOCTEXT("TutorialCategories","FoliageTitle","Foliage"),Description=NSLOCTEXT("TutorialCategories","FoliageDescription","Tutorials covering the Unreal Engine 4 Foliage tool."),Icon="LevelEditor.FoliageMode",Texture=/Engine/Tutorial/Foliage/TutorialAssets/Foliage.Foliage,SortOrder=800)
+ +Categories=(Identifier="Mobile",Title=NSLOCTEXT("TutorialCategories","MobileTitle","Mobile"),Description=NSLOCTEXT("TutorialCategories","MobileDescription","Mobile Tutorials."),Icon="MaterialEditor.TogglePlatformStats",Texture=None,SortOrder=900)
+-+StartupTutorial=/Engine/Tutorial/Basics/LevelEditorAttract.LevelEditorAttract_C
+++StartupTutorial=None
+ +TutorialContexts=(Context="StaticMeshEditor",BrowserFilter=,AttractTutorial=None,LaunchTutorial=/Engine/Tutorial/SubEditors/StaticMeshEditorTutorial.StaticMeshEditorTutorial_C)
+ +TutorialContexts=(Context="LevelEditor",BrowserFilter=,AttractTutorial=None,LaunchTutorial=/Engine/Tutorial/Basics/LevelEditorOverview.LevelEditorOverview_C)
+ +TutorialContexts=(Context="BlueprintEditor",BrowserFilter=,AttractTutorial=None,LaunchTutorial=/Engine/Tutorial/BlueprintTutorials/BlueprintEditorTutorial.BlueprintEditorTutorial_C)
+diff --git a/Engine/Config/BaseEngine.ini b/Engine/Config/BaseEngine.ini
+index 2ad630f42d7..1b4585b41c8 100644
+--- a/Engine/Config/BaseEngine.ini
++++ b/Engine/Config/BaseEngine.ini
+@@ -2074,7 +2074,7 @@ TargetArchitecture=X86_64UnknownLinuxGnu
+ +TargetedRHIs=SF_VULKAN_SM5
+ 
+ ; OpenGL4 is deprecated, you can comment this back in to add it to your targeted RHI list
+-; +TargetedRHIs=GLSL_430
+++TargetedRHIs=GLSL_430
+ 
+  
+ [/Script/MacTargetPlatform.MacTargetSettings]
+diff --git a/Engine/Config/Linux/LinuxEngine.ini b/Engine/Config/Linux/LinuxEngine.ini
+index 99d8f609d22..b3549f6aa71 100644
+--- a/Engine/Config/Linux/LinuxEngine.ini
++++ b/Engine/Config/Linux/LinuxEngine.ini
+@@ -3,13 +3,13 @@
+ PlatformHeadroomDB=0
+ 
+ [SystemSettings]
+-r.setres=1280x720
++r.setres=1920x1080w
+ 
+ [SystemSettingsEditor]
+ ;r.RHICmdBypass=1
+ 
+ [/Script/SourceCodeAccess.SourceCodeAccessSettings]
+-PreferredAccessor=NullSourceCodeAccessor
++PreferredAccessor=VisualStudioCodeSourceCodeAccessor
+ 
+ [TextureStreaming]
+ ; PoolSizeVRAMPercentage is how much percentage of GPU Dedicated VRAM should be used as a TexturePool cache for streaming textures (0 - unlimited streaming)
