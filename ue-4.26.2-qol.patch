@@ -1,0 +1,118 @@
+diff --git a/Engine/Config/BaseEditorPerProjectUserSettings.ini b/Engine/Config/BaseEditorPerProjectUserSettings.ini
+index 321255f85f9..f06502ec4aa 100644
+--- a/Engine/Config/BaseEditorPerProjectUserSettings.ini
++++ b/Engine/Config/BaseEditorPerProjectUserSettings.ini
+@@ -98,7 +98,7 @@ LogErrorColor=(R=1.000000,G=0.052083,B=0.060957,A=1.000000)
+ LogFontSize=9
+ 
+ ; If true, all toolbars will use small icons without labels
+-bUseSmallToolBarIcons=False
++bUseSmallToolBarIcons=True
+ ; Enables animated transitions for certain menus and pop-up windows.  Note that animations may be automatically disabled at low frame rates in order to improve responsiveness.
+ bEnableWindowAnimations=False
+ ;If true, Variables names in the script editor are displayed in a sanitized format
+@@ -162,11 +162,11 @@ bAutoReimportCSV=False
+ ; Whether to mark blueprints dirty if they are automatically migrated during loads
+ bDirtyMigratedBlueprints=False
+ ; Whether to automatically save after a time interval
+-bAutoSaveEnable=True
++bAutoSaveEnable=False
+ ; Whether to automatically save maps during an autosave
+-bAutoSaveMaps=True
++bAutoSaveMaps=False
+ ; Whether to automatically save content packages during an autosave
+-bAutoSaveContent=True
++bAutoSaveContent=False
+ ; The time interval after which to save
+ AutoSaveTimeMinutes=10
+ ; The minimum number of seconds to wait after the last user interactions (with the editor) before auto-save can trigger.
+diff --git a/Engine/Config/BaseEditorSettings.ini b/Engine/Config/BaseEditorSettings.ini
+index d15c3c202fc..457d8d1a7a9 100644
+--- a/Engine/Config/BaseEditorSettings.ini
++++ b/Engine/Config/BaseEditorSettings.ini
+@@ -8,13 +8,13 @@ ShouldUseLocalizedPropertyNames=True
+ ShouldUseLocalizedNodeAndPinNames=True
+ 
+ [/Script/UnrealEd.EditorSettings]
+-bCopyStarterContentPreference = true
++bCopyStarterContentPreference=False
+ 
+ [/Script/UnrealEd.CrashReportsPrivacySettings]
+-bSendUnattendedBugReports=True
++bSendUnattendedBugReports=False
+ 
+ [/Script/UnrealEd.AnalyticsPrivacySettings]
+-bSendUsageData=True
++bSendUsageData=False
+ 
+ [/Script/NewsFeed.NewsFeedSettings]
+ CdnSourceUrl="http://cdn.unrealengine.com/newsfeed/[[Culture]]/index.json"
+@@ -33,7 +33,7 @@ DisplayFolders=True
+ ; Whether to display empty folders in the asset view of the content browser.
+ DisplayEmptyFolders=True
+ ; Whether to display the engine folders in the assets view of the content browser. Note that this implies 'Display Folders'.
+-DisplayEngineFolder=False
++DisplayEngineFolder=True
+ ; Whether to display the developers folder in the path or assets view of the content browser
+ DisplayDevelopersFolder=False
+ ; Whether to display the collections view in the Content Browser
+@@ -52,6 +52,7 @@ IncludeAssetPaths=False
+ IncludeCollectionNames=True
+ 
+ [/Script/IntroTutorials.EditorTutorialSettings]
++bDisableAllTutorialAlerts=True
+ +Categories=(Identifier="Basics",Title=NSLOCTEXT("TutorialCategories","BasicsTitle","Basics"),Description=NSLOCTEXT("TutorialCategories","BasicsDescription","Getting started with Unreal Engine 4."),Icon="PlayWorld.RepeatLastPlay",Texture=None,SortOrder=100)
+ +Categories=(Identifier="Blueprints",Title=NSLOCTEXT("TutorialCategories","BlueprintsTitle","Blueprints"),Description=NSLOCTEXT("TutorialCategories","BlueprintsDescription","Tutorials covering the creation and usage of Blueprints."),Icon="FullBlueprintEditor.EditGlobalOptions",Texture=/Engine/Tutorial/BlueprintTutorials/TutorialAssets/Blueprint_64x.Blueprint_64x,SortOrder=200)
+ +Categories=(Identifier="Editors",Title=NSLOCTEXT("TutorialCategories","EditorsTitle","Editors"),Description=NSLOCTEXT("TutorialCategories","EditorsDescription","Tutorials covering the various sub editors of Unreal Engine 4."),Icon=,Texture=/Engine/Tutorial/SubEditors/TutorialAssets/icon_Editor_Preferences_General_40x.icon_Editor_Preferences_General_40x,SortOrder=225)
+@@ -60,7 +61,7 @@ IncludeCollectionNames=True
+ +Categories=(Identifier="Landscape",Title=NSLOCTEXT("TutorialCategories","LandscapeTitle","Landscape"),Description=NSLOCTEXT("TutorialCategories","LandscapeDescription","Tutorials covering the Unreal Editor 4 terrain editor: Landscape."),Icon="LevelEditor.LandscapeMode",Texture=/Engine/Tutorial/Landscape/TutorialAssets/Landscape.Landscape,SortOrder=700)
+ +Categories=(Identifier="Foliage",Title=NSLOCTEXT("TutorialCategories","FoliageTitle","Foliage"),Description=NSLOCTEXT("TutorialCategories","FoliageDescription","Tutorials covering the Unreal Engine 4 Foliage tool."),Icon="LevelEditor.FoliageMode",Texture=/Engine/Tutorial/Foliage/TutorialAssets/Foliage.Foliage,SortOrder=800)
+ +Categories=(Identifier="Mobile",Title=NSLOCTEXT("TutorialCategories","MobileTitle","Mobile"),Description=NSLOCTEXT("TutorialCategories","MobileDescription","Mobile Tutorials."),Icon="MaterialEditor.TogglePlatformStats",Texture=None,SortOrder=900)
+-+StartupTutorial=/Engine/Tutorial/Basics/LevelEditorAttract.LevelEditorAttract_C
+++StartupTutorial=None
+ +TutorialContexts=(Context="StaticMeshEditor",BrowserFilter=,AttractTutorial=None,LaunchTutorial=/Engine/Tutorial/SubEditors/StaticMeshEditorTutorial.StaticMeshEditorTutorial_C)
+ +TutorialContexts=(Context="LevelEditor",BrowserFilter=,AttractTutorial=None,LaunchTutorial=/Engine/Tutorial/Basics/LevelEditorOverview.LevelEditorOverview_C)
+ +TutorialContexts=(Context="BlueprintEditor",BrowserFilter=,AttractTutorial=None,LaunchTutorial=/Engine/Tutorial/BlueprintTutorials/BlueprintEditorTutorial.BlueprintEditorTutorial_C)
+diff --git a/Engine/Config/BaseEngine.ini b/Engine/Config/BaseEngine.ini
+index 9a6faf8265f..62db491a9c7 100644
+--- a/Engine/Config/BaseEngine.ini
++++ b/Engine/Config/BaseEngine.ini
+@@ -1724,7 +1724,7 @@ Boot=(Type=Boot, Filename="%GAMEDIR%DerivedDataCache/Boot.ddc", MaxCacheSize=512
+ ;	EditorOverrideSetting: Editor user setting that overrides the default/envvarcommand line values
+ Local=(Type=FileSystem, ReadOnly=false, Clean=false, Flush=false, PurgeTransient=true, DeleteUnused=true, UnusedFileAge=34, FoldersToClean=-1, PromptIfMissing=true, Path=%ENGINEDIR%DerivedDataCache, EnvPathOverride=UE-LocalDataCachePath, EditorOverrideSetting=LocalDerivedDataCache)
+ ; Configure the shared DDC that is accessed after local. It's a filesystem DDC and the parameters are explained above
+-Shared=(Type=FileSystem, ReadOnly=false, Clean=false, Flush=false, DeleteUnused=true, UnusedFileAge=10, FoldersToClean=10, MaxFileChecksPerSec=1, ConsiderSlowAt=70, PromptIfMissing=false, Path=?EpicDDC, EnvPathOverride=UE-SharedDataCachePath, EditorOverrideSetting=SharedDerivedDataCache, CommandLineOverride=SharedDataCachePath)
++Shared=(Type=FileSystem, ReadOnly=false, Clean=false, Flush=false, DeleteUnused=true, UnusedFileAge=10, FoldersToClean=10, MaxFileChecksPerSec=1, ConsiderSlowAt=70, PromptIfMissing=false, Path=/opt/ue-4.26.2/DerivedDataCache, EnvPathOverride=UE-SharedDataCachePath, EditorOverrideSetting=SharedDerivedDataCache, CommandLineOverride=SharedDataCachePath)
+ ; Configure an alternate shared DDC that is accessed after local. It's a filesystem DDC and the parameters are explained above
+ AltShared=(Type=FileSystem, ReadOnly=true, Clean=false, Flush=false, DeleteUnused=true, UnusedFileAge=23, FoldersToClean=10, MaxFileChecksPerSec=1, ConsiderSlowAt=70, PromptIfMissing=false, Path=?EpicDDC2, EnvPathOverride=UE-SharedDataCachePath2)
+ ; Configure a Project Pak node. This is a pre-generated DDC data file for the project that can be distributed to reduce runtime fetches/generation
+@@ -2296,7 +2296,7 @@ bEnableRayTracing=true
+ bTarget32Bit=false
+ 
+ [/Script/LinuxTargetPlatform.LinuxTargetSettings]
+-+TargetedRHIs=SF_VULKAN_SM5
+++TargetedRHIs=GLSL_430
+ 
+ [/Script/MacTargetPlatform.MacTargetSettings]
+ MaxShaderLanguageVersion=4
+diff --git a/Engine/Config/Linux/LinuxEngine.ini b/Engine/Config/Linux/LinuxEngine.ini
+index 1328da7415e..a6fe6373553 100644
+--- a/Engine/Config/Linux/LinuxEngine.ini
++++ b/Engine/Config/Linux/LinuxEngine.ini
+@@ -3,14 +3,14 @@
+ PlatformHeadroomDB=0
+ 
+ [SystemSettings]
+-r.setres=1280x720
++r.setres=1920x1080w
+ fx.NiagaraAllowRuntimeScalabilityChanges=1
+ 
+ [SystemSettingsEditor]
+ ;r.RHICmdBypass=1
+ 
+ [/Script/SourceCodeAccess.SourceCodeAccessSettings]
+-PreferredAccessor=NullSourceCodeAccessor
++PreferredAccessor=VisualStudioCode
+ 
+ [TextureStreaming]
+ ; PoolSizeVRAMPercentage is how much percentage of GPU Dedicated VRAM should be used as a TexturePool cache for streaming textures (0 - unlimited streaming)
